@@ -1,0 +1,285 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  CFM 1e-06
+  ERP 0.6
+  basicTimeStep 4
+  FPS 30
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.8
+      ]
+      forceDependentSlip [
+        0.1
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.9999412967012494 0.004555540740794563 0.009831083357535469 1.324371733897249
+  position 0.004450025776133609 3.670879171457309 1.063190324181275
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 5 5
+  floorAppearance PBRAppearance {
+    roughness 1
+    metalness 0
+  }
+}
+DEF Car Robot {
+  translation -1.59994e-05 0.039721 2.17745e-05
+  rotation 0.00035795692624686283 0.9999997939609027 0.0005328648902089764 -0.00034530717958602963
+  children [
+    DistanceSensor {
+      translation 0.015 -0.020008 0.1
+      rotation 0 0 1 -1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_2"
+      type "infra-red"
+    }
+    DistanceSensor {
+      translation 0.03 -0.020016 0.1
+      rotation 0 0 1 -1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_1"
+      type "infra-red"
+    }
+    DistanceSensor {
+      translation 0 -0.02 0.1
+      rotation 0 0 1 -1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_3"
+      type "infra-red"
+    }
+    DistanceSensor {
+      translation -0.015 -0.019992 0.1
+      rotation 0 0 1 -1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_4"
+      type "infra-red"
+    }
+    DEF BODY Shape {
+      appearance PBRAppearance {
+        baseColor 0.917647 0.145098 0.145098
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.05 0.2
+      }
+    }
+    DEF WHEEL1 HingeJoint {
+      jointParameters HingeJointParameters {
+        position 19.83999723980456
+        anchor 0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel1"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 0.05
+        rotation 1 0 0 0
+        children [
+          DEF WHEEL Transform {
+            rotation 0 0 1 1.5708
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.305882 0.898039 0.25098
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.02
+                  radius 0.04
+                  subdivision 24
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF WHEEL2 HingeJoint {
+      jointParameters HingeJointParameters {
+        position 2.1903567338295485e-07
+        anchor -0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel2"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 0.05
+        rotation 1 0 0 2.1900144899933154e-07
+        children [
+          USE WHEEL
+        ]
+        name "solid(1)"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF WHEEL3 HingeJoint {
+      jointParameters HingeJointParameters {
+        position 1.3755203060558622e-07
+        anchor 0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel3"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 -0.05
+        rotation 1 0 0 1.3657139822709086e-07
+        children [
+          USE WHEEL
+        ]
+        name "solid(2)"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF WHEEL4 HingeJoint {
+      jointParameters HingeJointParameters {
+        position 5.814807435954372e-09
+        anchor -0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel4"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 -0.05
+        rotation 1 0 0 0
+        children [
+          USE WHEEL
+        ]
+        name "solid(3)"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DistanceSensor {
+      translation -0.03 -0.019984 0.1
+      rotation 0 0 1 -1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_5"
+      type "infra-red"
+    }
+    Camera {
+      translation 0 0.03 0.1
+      rotation 1.2410098062554258e-09 0.965925849201117 0.2588189595935754 3.14159
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.005
+          }
+        }
+      ]
+      width 320
+      height 240
+      noise 0.1
+    }
+  ]
+  boundingObject USE BODY
+  physics Physics {
+  }
+  controller "vision_controller"
+}
+DEF Line Transform {
+  translation -0.240048 -0.015 0.06
+  rotation 0 1 0 1.57
+  scale 2 2 2
+  children [
+    TrackOne {
+    }
+  ]
+}
+DEF Line Transform {
+  translation -0.26 -0.015 1.06116e-07
+  rotation 0 -1 0 -5.307179586466759e-06
+  scale 2 2 2
+  children [
+    TrackOne {
+    }
+  ]
+}
