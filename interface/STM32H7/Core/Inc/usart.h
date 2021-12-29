@@ -44,10 +44,7 @@ void MX_USART2_UART_Init(void);
 void MX_USART3_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void Motor_Rotate(int PID, int PWM, int TIME);
-void Num2str(int num, int digit);
-char digit2str(int num);
-char *myitoa(int value, char *string, int radix);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
