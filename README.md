@@ -2,7 +2,7 @@
 
 
 ## Introduction
-This repo is part of a line follower bot project, especially the simulation and PID controllers in Webots for fast algorithm validations. Besides, a hardware sim-to-real solution is given by serial USART communication between Raspberry Pi Zero and STM32H7 MCU.
+This repo is part of a line follower bot project, especially the simulation and PID controllers in Webots for fast algorithm validations. Besides, a hardware sim-to-real solution is given by serial *UART* communication between *Raspberry Pi Zero* and *STM32H7 MCU*.
 
 <img src="images/vision_fast.gif" width=400>
 
@@ -73,14 +73,16 @@ For better "sim-to-real" transfer, the following properties in the simulation sh
 
 ## Hardware
 
-The vision code is run on a Raspberry Pi Zero with Pi Camera  at 100Hz while the motor code is run on a STM32H7 at 500Hz. Serial UART is used for communication.
-- Raspberry Pi Zero with Pi Camera
+The vision code is run on a *Raspberry Pi Zero* with *Pi Camera* at 100Hz while the motor code is run on a *STM32H7* at 500Hz. Serial *UART* is used for communication.
+- *Raspberry Pi Zero* with *Pi Camera*
     - `pySerial`
     - `picamera`
-    <img src="images/pi_zero_with_camera.png" width=250>
+
+     <img src="images/pi_zero_with_camera.png" width=250>
 
 - Line Follower Bot
-    <img src="images/robot.JPG" width=400>
+
+     <img src="images/robot.JPG" width=400>
 
 ## Credits
 - The track is made using CAD model from @DrakerDG.
