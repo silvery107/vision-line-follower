@@ -6,6 +6,10 @@ This repo is part of a line follower bot project, especially the simulation and 
 
 <img src="images/vision_fast.gif" width=400>
 
+## Quick Start
+
+Open `<worlds/world.wbt>` in [Webots 2021a](https://cyberbotics.com/).
+
 ## Simulation
 
 ### Model and Sensors
