@@ -171,3 +171,4 @@ dmypy.json
 *.ipynb
 __pycache__/
 build/
+*.drawio

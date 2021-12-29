@@ -25,7 +25,7 @@ for name in ds_name:
     sensors.append(ds)
 
 
-def getTraceVal(ds):
+def getIRValue(ds):
     temp = ds.getValue()
     if temp > 500:
         return 0
@@ -36,6 +36,8 @@ def getTraceVal(ds):
 def setLeftWheel(val):
     if val > MAX_VEL:
         val = MAX_VEL
+    if val < -MAX_VEL:
+        val = -MAX_VEL
     motors[0].setVelocity(val)
     motors[2].setVelocity(val)
 
@@ -43,6 +45,8 @@ def setLeftWheel(val):
 def setRightWheel(val):
     if val > MAX_VEL:
         val = MAX_VEL
+    if val < -MAX_VEL:
+        val = -MAX_VEL
     motors[1].setVelocity(val)
     motors[3].setVelocity(val)
 
@@ -57,13 +61,9 @@ LINE_COUNT = 100
 error = 0.0
 last_error = 0.0
 while robot.step(timestep) != -1:
-    traces = []
+    ID_data = [getIRValue(sensor) for sensor in sensors]
     left_vel = 0.5 * MAX_VEL
     right_vel = 0.5 * MAX_VEL
-
-    for name, sensor in zip(ds_name, sensors):
-        traces.append(getTraceVal(sensor))
-    # print(traces)
 
     img = np.array(camera.getImageArray()).astype(np.uint8)  # (240, 320, 3)
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -75,8 +75,8 @@ while robot.step(timestep) != -1:
     # print(img_thr.shape)
     # cv2.imshow(win_name, img_thr)
     # cv2.waitKey(27)
-    centers = []
 
+    centers = []
     for i in range(LINE_COUNT):
         line = img_thr[LINE_START + i, :]
         black_count = np.sum(line == 0)
@@ -94,12 +94,12 @@ while robot.step(timestep) != -1:
         line_center = np.sum(centers) / len(centers)
     else:
         continue
-        # line_center = 160
+
 
     error = (line_center - 160) / 160
     PD_feedback = KP * error + KD * (error - last_error)
     last_error = error
-    print(PD_feedback)
+    # print(PD_feedback)
 
     left_vel += PD_feedback
     right_vel += -PD_feedback
