@@ -8,7 +8,7 @@ This repo is part of a line follower bot project, especially the simulation and 
 
 ## Quick Start
 
-Open `<worlds/world.wbt>` in [Webots 2021a](https://cyberbotics.com/).
+Open `<worlds/world.wbt>` in [Webots 2021a](https://cyberbotics.com/). Check `<controller>` and `<interface>` folder for controllers and hardware code respectively.
 
 ## Simulation
 
