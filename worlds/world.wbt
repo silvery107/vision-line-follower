@@ -17,8 +17,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.9999412967012494 0.004555540740794563 0.009831083357535469 1.324371733897249
-  position 0.004450025776133609 3.670879171457309 1.063190324181275
+  orientation -0.9999243106132782 0.0061551736511224545 0.01065302219487732 1.144383716053302
+  position -0.040115427355471446 3.9067101727235096 1.8664984527289832
 }
 TexturedBackground {
 }
@@ -32,7 +32,7 @@ RectangleArena {
   }
 }
 DEF Car Robot {
-  translation -1.59994e-05 0.039721 2.17745e-05
+  translation 0.239984 0.039721 0.000104648
   rotation 0.00035795692624686283 0.9999997939609027 0.0005328648902089764 -0.00034530717958602963
   children [
     DistanceSensor {
@@ -244,7 +244,7 @@ DEF Car Robot {
     }
     Camera {
       translation 0 0.03 0.1
-      rotation 1.2410098062554258e-09 0.965925849201117 0.2588189595935754 3.14159
+      rotation 3.121578704738492e-07 0.9659255992007998 0.25881989260580107 3.14159
       children [
         Shape {
           appearance PBRAppearance {
@@ -257,16 +257,16 @@ DEF Car Robot {
       ]
       width 320
       height 240
-      noise 0.1
+      noise 0.05
     }
   ]
   boundingObject USE BODY
   physics Physics {
   }
-  controller "vision_controller"
+  controller "IR_controller"
 }
 DEF Line Transform {
-  translation -0.240048 -0.015 0.06
+  translation 0 -0.015 0
   rotation 0 1 0 1.57
   scale 2 2 2
   children [
@@ -275,7 +275,7 @@ DEF Line Transform {
   ]
 }
 DEF Line Transform {
-  translation -0.26 -0.015 1.06116e-07
+  translation 0 -0.015 0
   rotation 0 -1 0 -5.307179586466759e-06
   scale 2 2 2
   children [

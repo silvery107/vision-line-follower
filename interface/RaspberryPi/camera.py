@@ -14,7 +14,7 @@ camera.brightness = 50
 sleep(1)
 
 # setup serial GPIO 14 TX GPIO 15 RX
-ser = serial.Serial("/dev/ttyAMA0", 19200, timeout = 0.001)
+ser = serial.Serial("/dev/ttyAMA0", 19200, timeout = 0.005)
 if ser.isOpen() == False:
     ser.open()
 
@@ -91,7 +91,7 @@ try:
             #print(ser_data.encode('utf-8'))
         
         count += 1
-        sleep(0.001) # 1000 Hz
+        sleep(0.005) # 100 Hz
 except KeyboardInterrupt:
     ser.close()
     camera.close()
