@@ -82,7 +82,7 @@ The vision code is run on a *Raspberry Pi Zero* with *Pi Camera* at 100Hz while 
 
 - Line Follower Bot
 
-     <img src="images/robot.JPG" width=400>
+     <img src="images/robot.png" width=400>
 
 ## Credits
 - The track is made using CAD model from @DrakerDG.
