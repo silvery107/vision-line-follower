@@ -12,7 +12,7 @@ This repo is part of a line follower bot project, especially the simulation and 
 ### Model and Sensors
 One camera and 5 infrared (IR) sensors are mounted on the four-wheel drive car. Based on given sensors, two control algorithm is setup in Webots simulation for fast validations. Note that there is no feedback on the motor.
 
-<img src="images/readme.png" width=300>
+<img src="images/readme.png" width=350>
 
 
 ### IR Controller
@@ -38,17 +38,15 @@ setRightWheel(right_vel)
 
 By using the camera to observe the track, we can close the loop for speed control. The vision servo uses the deviation feedback between the body and the black line to control the angular speed of the car and uses the center of the black line in the vertical direction to regulate the speed of the car.
 
-#### Process Image 
+#### Process Image
+Once we retrieve the image, we perform the following basic image processing steps.
+
 ```python
 img = np.array(camera.getImageArray()).astype(np.uint8)  # (240, 320, 3)
 img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-img_gray = cv2.erode(img_gray,
-                        cv2.getStructuringElement(cv2.MORPH_ERODE, (5, 5)),
-                        iterations=2)
 _, img_thr = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
+img_proc = cv2.morphologyEx(img_thr, cv2.MORPH_OPEN, kernel)
 ```
-
-<!-- TODO add images -->
 
 #### Calculate Line Center
 Count only `LINE_COUNT` lines in the image from `LINE_START`.
@@ -60,7 +58,7 @@ for i in range(LINE_COUNT):
     black_index = np.where(line == 0)[0]  # uppack tuple (320,)
     center = (black_index[0] + black_index[black_count - 1]) / 2
     centers.append(center)
-    line_center = np.sum(centers) / len(centers)
+line_center = np.sum(centers) / len(centers)
 ```
 
 #### Credits
