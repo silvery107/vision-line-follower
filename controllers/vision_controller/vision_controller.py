@@ -52,33 +52,34 @@ def setRightWheel(val):
 
 
 win_name = "line"
-MAX_VEL = 50
+MAX_VEL = 60
 KP = 20
 KD = 1
-LINE_START = 100
-LINE_COUNT = 100
+LINE_START = 0
+LINE_COUNT = 150
 
 error = 0.0
 last_error = 0.0
+line_center = 0.0
+kernel = np.ones((5, 5), np.uint8)
 while robot.step(timestep) != -1:
-    ID_data = [getIRValue(sensor) for sensor in sensors]
+    IR_data = [getIRValue(sensor) for sensor in sensors]
     left_vel = 0.5 * MAX_VEL
     right_vel = 0.5 * MAX_VEL
 
     img = np.array(camera.getImageArray()).astype(np.uint8)  # (240, 320, 3)
+    img = cv2.rotate(cv2.flip(img, 0), cv2.ROTATE_90_CLOCKWISE)
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    img_gray = cv2.rotate(cv2.flip(img_gray, 0), cv2.ROTATE_90_CLOCKWISE)
-    img_gray = cv2.erode(img_gray,
-                         cv2.getStructuringElement(cv2.MORPH_ERODE, (5, 5)),
-                         iterations=2)
     _, img_thr = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
-    # print(img_thr.shape)
-    # cv2.imshow(win_name, img_thr)
+    img_proc = cv2.morphologyEx(img_thr, cv2.MORPH_OPEN, kernel)
+
+    # results = np.concatenate((img_gray, img_proc), axis=1)
+    # cv2.imshow(win_name, results)
     # cv2.waitKey(27)
 
     centers = []
     for i in range(LINE_COUNT):
-        line = img_thr[LINE_START + i, :]
+        line = img_proc[LINE_START + i, :]
         black_count = np.sum(line == 0)
         black_index = np.where(line == 0)[0]  # uppack tuple (320,)
         if black_count == 0:
@@ -94,6 +95,13 @@ while robot.step(timestep) != -1:
         line_center = np.sum(centers) / len(centers)
     else:
         continue
+
+    # img_proc = cv2.cvtColor(img_proc, cv2.COLOR_GRAY2BGR)
+    # cv2.line(img_proc, (int(line_center), 240), (int(line_center), 120), color=(0, 0, 255), thickness=4)
+    # print(img_proc.shape)
+    # results = np.concatenate((img, img_proc), axis=1)
+    # cv2.imshow(win_name, results)
+    # cv2.waitKey(27)
 
 
     error = (line_center - 160) / 160
