@@ -56,11 +56,11 @@ MAX_VEL = 60
 KP = 20
 KD = 1
 LINE_START = 0
-LINE_COUNT = 150
+LINE_COUNT = 240
 
 error = 0.0
 last_error = 0.0
-line_center = 0.0
+line_center = 160.0
 kernel = np.ones((5, 5), np.uint8)
 while robot.step(timestep) != -1:
     IR_data = [getIRValue(sensor) for sensor in sensors]
@@ -77,28 +77,36 @@ while robot.step(timestep) != -1:
     # cv2.imshow(win_name, results)
     # cv2.waitKey(27)
 
-    centers = []
-    for i in range(LINE_COUNT):
-        line = img_proc[LINE_START + i, :]
-        black_count = np.sum(line == 0)
-        black_index = np.where(line == 0)[0]  # uppack tuple (320,)
-        if black_count == 0:
-            black_count = 1
+    # *find line center using image moments
+    img_proc[:LINE_START,:] = 0
+    img_proc[LINE_START+LINE_COUNT:,:] = 0
+    _, img_proc_inv = cv2.threshold(img_proc, 0,255, cv2.THRESH_BINARY_INV)
+    M = cv2.moments(img_proc_inv)
+    if M['m00'] > 0:
+        line_center = int(M['m10']/M['m00'])
 
-        if black_index.size == 0:
-            continue
+    # *find line center using average pixels
+    # centers = []
+    # for i in range(LINE_COUNT):
+    #     line = img_proc[LINE_START + i, :]
+    #     black_count = np.sum(line == 0)
+    #     black_index = np.where(line == 0)[0]  # uppack tuple (320,)
+    #     if black_count == 0:
+    #         black_count = 1
 
-        center = (black_index[0] + black_index[black_count - 1]) / 2
-        centers.append(center)
+    #     if black_index.size == 0:
+    #         continue
 
-    if len(centers) != 0:
-        line_center = np.sum(centers) / len(centers)
-    else:
-        continue
+    #     center = (black_index[0] + black_index[black_count - 1]) / 2
+    #     centers.append(center)
+
+    # if len(centers) != 0:
+    #     line_center = np.sum(centers) / len(centers)
+    # else:
+    #     continue
 
     # img_proc = cv2.cvtColor(img_proc, cv2.COLOR_GRAY2BGR)
     # cv2.line(img_proc, (int(line_center), 240), (int(line_center), 120), color=(0, 0, 255), thickness=4)
-    # print(img_proc.shape)
     # results = np.concatenate((img, img_proc), axis=1)
     # cv2.imshow(win_name, results)
     # cv2.waitKey(27)

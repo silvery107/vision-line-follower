@@ -66,6 +66,15 @@ for i in range(LINE_COUNT):
     centers.append(center)
 line_center = np.sum(centers) / len(centers)
 ```
+A better method is to use image moments.
+
+```python
+img_proc[:LINE_START,:] = 0
+img_proc[LINE_START+LINE_COUNT:,:] = 0
+M = cv2.moments(img_proc)
+if M['m00'] > 0:
+    line_center = int(M['m10']/M['m00'])
+```
 
 ### Sim-to-Real Gap
 
