@@ -67,7 +67,8 @@ while robot.step(timestep) != -1:
     left_vel = 0.5 * MAX_VEL
     right_vel = 0.5 * MAX_VEL
 
-    img = np.array(camera.getImageArray()).astype(np.uint8)  # (240, 320, 3)
+    # (240, 320, 3)
+    img = np.frombuffer(camera.getImage(), np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))[:,:,:3].copy()
     img = cv2.rotate(cv2.flip(img, 0), cv2.ROTATE_90_CLOCKWISE)
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     _, img_thr = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
