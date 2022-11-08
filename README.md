@@ -98,6 +98,6 @@ The vision code is run on a *Raspberry Pi Zero* with *Pi Camera* at 100Hz while 
      <img src="images/robot.png" width=400>
 
 ## Credits
-- The track is made using CAD model from @DrakerDG.
-- The idea of speed control in x axis (not implemented) is from @Nokkxz.
-- The photo of line follower bot is taken by @Sureland.
+- The track is made using CAD model from [@DrakerDG](https://github.com/DrakerDG).
+- The idea of speed control in x axis (not implemented) is from [@Nokkxz](https://github.com/Nokkxz).
+- The photo of line follower bot is taken by [@Sureland](https://github.com/Sureland).
